@@ -11,6 +11,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 const authRoutes = require("./src/routes/auth.js");
+const vehicleRoutes = require("./src/routes/vehicle");
 
 app.get("/health", (req, res) => {
     res.status(200).json({
@@ -20,5 +21,6 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/vehicles", vehicleRoutes);
 
 module.exports = app;
