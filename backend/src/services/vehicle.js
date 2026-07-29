@@ -1,4 +1,7 @@
 const Vehicle = require("../models/Vehicle");
+const createError = require("../utils/errors");
+
+
 const createVehicle = async (vehicleData) => {
 
     const vehicle = await Vehicle.create(vehicleData);
@@ -9,7 +12,7 @@ const createVehicle = async (vehicleData) => {
 
 const getVehicles = async () => {
 
-    return await Vehicle.find();
+    return Vehicle.find();
 
 };
 
@@ -42,7 +45,7 @@ const searchVehicles = async (query) => {
         }
     }
 
-    return await Vehicle.find(filter);
+    return Vehicle.find(filter);
 
 };
 
@@ -51,15 +54,11 @@ const purchaseVehicle = async (id) => {
     const vehicle = await Vehicle.findById(id);
 
     if (!vehicle) {
-        const error = new Error("Vehicle not found");
-        error.statusCode = 404;
-        throw error;
+        throw createError("Vehicle not found", 404);
     }
 
     if (vehicle.quantity <= 0) {
-        const error = new Error("Vehicle out of stock");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Vehicle out of stock", 400);
     }
 
     vehicle.quantity -= 1;
@@ -75,9 +74,7 @@ const restockVehicle = async (id, quantity) => {
     const vehicle = await Vehicle.findById(id);
 
     if (!vehicle) {
-        const error = new Error("Vehicle not found");
-        error.statusCode = 404;
-        throw error;
+       throw createError("Vehicle not found", 404);
     }
 
     vehicle.quantity += quantity;
@@ -100,9 +97,7 @@ const updateVehicle = async (id, updateData) => {
     );
 
     if (!vehicle) {
-        const error = new Error("Vehicle not found");
-        error.statusCode = 404;
-        throw error;
+        throw createError("Vehicle not found", 404);
     }
 
     return vehicle;
@@ -114,9 +109,7 @@ const deleteVehicle = async (id) => {
     const vehicle = await Vehicle.findByIdAndDelete(id);
 
     if (!vehicle) {
-        const error = new Error("Vehicle not found");
-        error.statusCode = 404;
-        throw error;
+        throw createError("Vehicle not found", 404);
     }
 
     return vehicle;
