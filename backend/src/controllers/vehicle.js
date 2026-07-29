@@ -1,4 +1,4 @@
-const { createVehicle,getVehicles,searchVehicles } = require("../services/vehicle");
+const { createVehicle,getVehicles,searchVehicles, purchaseVehicle} = require("../services/vehicle");
 
 const addVehicle = async (req, res) => {
 
@@ -67,8 +67,32 @@ const searchVehicle = async (req, res) => {
 
 };
 
+const purchase = async (req, res) => {
+
+    try {
+
+        const vehicle = await purchaseVehicle(req.params.id);
+
+        return res.status(200).json({
+            success: true,
+            message: "Vehicle purchased successfully",
+            vehicle,
+        });
+
+    } catch (error) {
+
+        return res.status(error.statusCode || 500).json({
+            success: false,
+            message: error.message,
+        });
+
+    }
+
+};
+
 module.exports = {
     addVehicle,
     getAllVehicles,
     searchVehicle,
+    purchase,
 };

@@ -46,8 +46,33 @@ const searchVehicles = async (query) => {
 
 };
 
+const purchaseVehicle = async (id) => {
+
+    const vehicle = await Vehicle.findById(id);
+
+    if (!vehicle) {
+        const error = new Error("Vehicle not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    if (vehicle.quantity <= 0) {
+        const error = new Error("Vehicle out of stock");
+        error.statusCode = 400;
+        throw error;
+    }
+
+    vehicle.quantity -= 1;
+
+    await vehicle.save();
+
+    return vehicle;
+
+};
+
 module.exports = {
     createVehicle,
     getVehicles,
     searchVehicles,
+    purchaseVehicle,
 };
