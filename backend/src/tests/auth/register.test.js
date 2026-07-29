@@ -1,8 +1,13 @@
 const request = require("supertest");
-
+const User = require("../../models/User");
 const app = require("../../../app");
 
 describe("Register API", () => {
+
+  beforeEach(async () => {
+        await User.deleteMany({});
+  });
+
   test("should register a new user", async () => {
     const response = await request(app).post("/api/auth/register").send({
       name: "Dhruv",
@@ -26,33 +31,23 @@ describe("Register API", () => {
     expect(response.body.user.role).toBe("user");
 
     expect(response.body.user.password).toBeUndefined();
-
   });
 
-  
-});
-
-test("should not register a user with an existing email", async () => {
-
+  test("should not register a user with an existing email", async () => {
     const user = {
-        name: "Dhruv",
-        email: "duplicate@gmail.com",
-        password: "Password123",
+      name: "Dhruv",
+      email: "duplicate@gmail.com",
+      password: "Password123",
     };
 
+    await request(app).post("/api/auth/register").send(user);
 
-    await request(app)
-        .post("/api/auth/register")
-        .send(user);
-
-    const response = await request(app)
-        .post("/api/auth/register")
-        .send(user);
+    const response = await request(app).post("/api/auth/register").send(user);
 
     expect(response.statusCode).toBe(409);
 
     expect(response.body.success).toBe(false);
 
     expect(response.body.message).toBe("Email already exists");
-
+  });
 });

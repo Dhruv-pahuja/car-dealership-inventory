@@ -19,8 +19,9 @@ const register = async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error);
-
+        if (!error.statusCode) {
+            console.error(error);
+        }
         return res.status(error.statusCode || 500).json({
         success: false,
         message: error.message,

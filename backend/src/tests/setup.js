@@ -10,5 +10,7 @@ beforeAll(async () => {
 }, 15000);
 
 afterAll(async () => {
-    await mongoose.connection.close();
+    if (mongoose.connection.readyState !== 0) {
+        await mongoose.connection.close();
+    }
 });
