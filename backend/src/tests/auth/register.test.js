@@ -31,3 +31,28 @@ describe("Register API", () => {
 
   
 });
+
+test("should not register a user with an existing email", async () => {
+
+    const user = {
+        name: "Dhruv",
+        email: "duplicate@gmail.com",
+        password: "Password123",
+    };
+
+
+    await request(app)
+        .post("/api/auth/register")
+        .send(user);
+
+    const response = await request(app)
+        .post("/api/auth/register")
+        .send(user);
+
+    expect(response.statusCode).toBe(409);
+
+    expect(response.body.success).toBe(false);
+
+    expect(response.body.message).toBe("Email already exists");
+
+});
