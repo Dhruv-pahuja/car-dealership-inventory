@@ -8,6 +8,13 @@ const createVehicle = async (vehicleData) => {
 
 };
 
+const getVehicles = async () => {
+
+    return await Vehicle.find();
+
+};
+
 module.exports = {
     createVehicle,
+    getVehicles,
 };
