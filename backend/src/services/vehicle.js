@@ -88,10 +88,32 @@ const restockVehicle = async (id, quantity) => {
 
 };
 
+const updateVehicle = async (id, updateData) => {
+
+    const vehicle = await Vehicle.findByIdAndUpdate(
+        id,
+        updateData,
+        {
+            new: true,
+            runValidators: true,
+        }
+    );
+
+    if (!vehicle) {
+        const error = new Error("Vehicle not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    return vehicle;
+
+};
+
 module.exports = {
     createVehicle,
     getVehicles,
     searchVehicles,
     purchaseVehicle,
     restockVehicle,
+    updateVehicle,
 };
