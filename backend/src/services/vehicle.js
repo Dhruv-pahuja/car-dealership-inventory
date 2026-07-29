@@ -109,6 +109,20 @@ const updateVehicle = async (id, updateData) => {
 
 };
 
+const deleteVehicle = async (id) => {
+
+    const vehicle = await Vehicle.findByIdAndDelete(id);
+
+    if (!vehicle) {
+        const error = new Error("Vehicle not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    return vehicle;
+
+};
+
 module.exports = {
     createVehicle,
     getVehicles,
@@ -116,4 +130,5 @@ module.exports = {
     purchaseVehicle,
     restockVehicle,
     updateVehicle,
+    deleteVehicle,
 };
