@@ -108,6 +108,42 @@ npm test
 
 All Jest test cases should pass successfully.
 
+## Test Report
+``` bash
+
+npm test
+
+
+Test Suites: 10 passed, 10 total
+Tests:       13 passed, 13 total
+Snapshots:   0 total
+Time:        20.292 s, estimated 23 s
+Ran all test suites.
+
+```
+
+## screenshots
+
+### Login
+
+![Login](./screenshots/login.png)
+
+### Register
+
+![Register](./screenshots/register.png)
+
+
+### Admin Dashboard
+
+![Admin Dashboard](./screenshots/admin.png)
+
+### dashboard 
+![Dashboard](./screenshots/dashboard.png)
+
+![](./screenshots/card-1.png)
+![](./screenshots/cards.png)
+
+
 # My AI Usage
 
 ## AI Tools Used
