@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
     return (
@@ -13,7 +14,11 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin" element={
+                    <ProtectedRoute adminOnly>
+                        <Admin />
+                    </ProtectedRoute>
+                } />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
