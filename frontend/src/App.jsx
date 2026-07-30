@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import Unauthorized from "./pages/Unauthorized";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Layout from "./components/layout/Layout";
 
@@ -22,6 +23,7 @@ function App() {
                         </ProtectedRoute>
                     } />
                     <Route path="*" element={<NotFound />} />
+                    <Route path="/unauthorized" element={<Unauthorized />} />
                 </Route>
             </Routes>
         </BrowserRouter>
